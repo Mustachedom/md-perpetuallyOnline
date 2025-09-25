@@ -17,13 +17,21 @@ local function spawnPeds(model)
 end
 
 local commandsStart = {
-    beANeckbeard = "a_m_m_beach_01",
+    beANeckbeard = "a_f_m_beach_01",
     beAnEGangster = "csb_ramp_gang",
     beAVirgin = 'csb_stripper_02',
 }
 
 for command, model in pairs(commandsStart) do
     RegisterCommand(command, function()
+        if #peds > 0 then
+            for _, ped in pairs(peds) do
+                if DoesEntityExist(ped) then
+                    DeleteEntity(ped)
+                end
+            end
+            peds = {}
+        end
         spawnPeds(model)
     end, false)
 end
